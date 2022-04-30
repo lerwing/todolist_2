@@ -1,0 +1,28 @@
+html, body {
+	font-family:Georgia, 'Times New Roman', Times, serif;
+    background-color: beige;
+    margin: 0
+}
+.page{
+    position: relative;
+    text-align: center;
+}
+#top{
+    height: 100px;
+    width: 80%;
+    max-width: 900px;
+    background-color: rgb(161, 161, 161);
+    display: inline-block;
+    margin: 0 auto;
+}
+#fon{
+    width: 80%;
+    min-height: 700px;
+    max-width: 900px;
+    display: inline-block;
+    margin: 0 auto;
+    background-position: center;
+    background-image: url(img/txt_fon.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
