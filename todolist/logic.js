@@ -9,7 +9,6 @@ let tipTxt = document.querySelector('.tip'),
 ;
 //let tipTemp = [];
 //let taskTemp = [];
-
 //Создаем двумерный массив для целей и задач в виде объекта из двух массивов которые будут содрежать объекты
 let data = {
     'tip': [],
@@ -37,6 +36,7 @@ tipBut.addEventListener('click', function(){
 // тоже самое для задач
 taskBut.addEventListener('click', function(){
     let newTask = {
+        tip: tipActivIndex.value,
         text: taskTxt.value,
         chec: false
     };
@@ -48,6 +48,8 @@ taskBut.addEventListener('click', function(){
     taskTxt.value = '';
 });
 
+
+//Функции
 //Вывод данных
 function output(){
     //вывод задач
