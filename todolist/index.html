@@ -2,19 +2,32 @@
 <html lang="ru">
     <head>
         <meta charset="utf-8">
-        <title>Сисок дел</title>
+        <title>Сисок задач</title>
         <link rel="stylesheet" href="main.css">
     </head>
     <body>
-        <div class="page">
+        <div id="page">
             <div id="top">
-                
+                <H1>Цели и задачи</H1>
+                <input type="text" placeholder="Введите цель..." class="tip">
+                <span class="tipAdd">Добавить</span>
+                <input type="text" placeholder="Введите задачу..." class="task">
+                <span class="taskAdd">Добавить</span>
             </div>
             <br>
             <div id="fon">
-                
+                <div class="txt_left">
+                    <ul id="tipLi">
+                        <li>1</li>
+                    </ul>
+                </div>
+                <div class="txt_rigth">
+                    <ul id="taskLi">
+                        <li>2</li>
+                    </ul>
+                </div>
             </div>
         </div>
-        <script src="logic.js"></script>
     </body>
+    <script src="logic.js"></script>
 </html>
