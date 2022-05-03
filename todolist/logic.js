@@ -2,10 +2,10 @@
 // 
 let tipTxt = document.querySelector('.tip'),
     tipBut = document.querySelector('.tipAdd'),
-    tip = document.querySelector('#tipLi'),
+    tip = document.querySelector('.tipLi'),
     taskTxt = document.querySelector('.task'),
     taskBut = document.querySelector('.taskAdd'),
-    task = document.querySelector('#taskLi')
+    task = document.querySelector('.taskLi')
 ;
 //let tipTemp = [];
 //let taskTemp = [];
@@ -19,11 +19,12 @@ if(localStorage.getItem('data')){
     data = JSON.parse(localStorage.getItem('data'));
     output();
 }
+
 //метод обработки нажатия кнопки получаем введенное название цели и делаем её активной
 tipBut.addEventListener('click', function(){
     let newTip = {
         text: tipTxt.value,
-        select: true
+        select: false
     };
     //Записываем новую цель в главный массив
     data.tip.push(newTip);
@@ -38,7 +39,7 @@ taskBut.addEventListener('click', function(){
     let newTask = {
         tip: tipActivIndex.value,
         text: taskTxt.value,
-        chec: false
+        chek: false
     };
     //console.log(newTask);
     output();
@@ -47,6 +48,27 @@ taskBut.addEventListener('click', function(){
     //очищаем поле воода
     taskTxt.value = '';
 });
+//Выбор активной цели
+tip.addEventListener('click', function(event){
+    //получаем ID элемента LI
+    let tipLi=event.target.getAttribute('id');
+    //отбрасываем текстовую часть tip_
+    tipLi = tipLi.slice(4);
+    //преобразуем в число
+    tipLi = Number.parseInt(tipLi);
+    //устанавливаем значение false всем целям
+    for(let i =0; i < data.tip.length; i++){
+        data.tip[i].select = false;
+    };
+    //устанавливаем значение true выбранной цели
+    data.tip[tipLi].select = true;
+    //console.log(tipLi);
+    // Вывадим на экра, Ура!!! заработало!!!
+    output()
+    //сохраняем данные в локал сторедж
+    localStorage.setItem('data', JSON.stringify(data));
+});
+
 
 
 //Функции
@@ -56,11 +78,12 @@ function output(){
     let output = '';
     data.tip.forEach(function(item, i){
         output += `
-        <li id='tip_${i}'>
-        ${i+1}. ${item.text}
+        <li id="tip_${i}" ${item.select ? 'class="select"' : ''}>
+        ${item.text}
         </li>
         `;
         tip.innerHTML = output;
-        console.log(i)
+        //console.log(i)
     });
 };
+

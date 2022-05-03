@@ -3,11 +3,11 @@ html, body {
     background-color: beige;
     margin: 0
 }
-#page{
+.page{
     position: relative;
     text-align: center;
 }
-#top{
+.top{
     height: 120px;
     width: 80%;
     max-width: 900px;
@@ -16,7 +16,7 @@ html, body {
     display: inline-block;
     margin: 0 auto;
 }
-#fon{
+.fon{
     width: 80%;
     min-height: 700px;
     max-width: 900px;
@@ -63,6 +63,13 @@ span {
     background-color: azure;
     padding: 5px;
     margin-left: 5px;
+    transition: 0.1s;
+}
+span:hover{
+    background-color: rgb(34, 177, 58);
+}
+span.dell{
+    background-color: rgb(145, 145, 145);
 }
 ul {
     cursor: pointer;
@@ -70,4 +77,16 @@ ul {
     user-select: none;
     list-style-type: none;
     margin: 0;
+    padding: 0;
+    float: left;
+}
+ul li.select {
+    color: rgb(18, 192, 12);
+}
+ul li:hover{
+    color: rgb(252, 197, 44);
+}
+ul li.chek{
+    color: rgb(5, 206, 65);
+    font-size: inherit;
 }
