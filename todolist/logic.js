@@ -48,21 +48,31 @@ taskBut.addEventListener('click', function(){
     //очищаем поле воода
     taskTxt.value = '';
 });
-//Выбор активной цели
+//Выбор или удаление активной цели
 tip.addEventListener('click', function(event){
     //получаем ID элемента LI
     let tipLi=event.target.getAttribute('id');
-    //отбрасываем текстовую часть tip_
-    tipLi = tipLi.slice(4);
-    //преобразуем в число
-    tipLi = Number.parseInt(tipLi);
-    //устанавливаем значение false всем целям
-    for(let i =0; i < data.tip.length; i++){
-        data.tip[i].select = false;
+    //Проверка на что нажали удалить или выделить
+    if (tipLi.search("tip_") !== -1){
+        //отбрасываем текстовую часть tip_
+        tipLi = tipLi.slice(4);
+        //преобразуем в число
+        tipLi = Number.parseInt(tipLi);
+        //устанавливаем значение false всем целям
+        for(let i =0; i < data.tip.length; i++){
+            data.tip[i].select = false;
+        };
+        //устанавливаем значение true выбранной цели
+        data.tip[tipLi].select = true;
+    } else{
+        //отбрасываем текстовую часть tip_
+        tipLi = tipLi.slice(5);
+        //преобразуем в число
+        tipLi = Number.parseInt(tipLi);
+        //Удаляем элемент из массива
+        data.tip.splice(tipLi, 1);
     };
-    //устанавливаем значение true выбранной цели
-    data.tip[tipLi].select = true;
-    //console.log(tipLi);
+    console.log(tipLi);
     // Вывадим на экра, Ура!!! заработало!!!
     output()
     //сохраняем данные в локал сторедж
@@ -76,10 +86,13 @@ tip.addEventListener('click', function(event){
 function output(){
     //вывод задач
     let output = '';
+    //если массив целей пуст выводи пустоту
+    if (data.tip.length === 0) tip.innerHTML = '';
+    //сканируем массив целей и выводим строку li для каждого элемента массива
     data.tip.forEach(function(item, i){
         output += `
         <li id="tip_${i}" ${item.select ? 'class="select"' : ''}>
-        ${item.text}
+        <span class="dell" id="tipD_${i}">X</span>${item.text}
         </li>
         `;
         tip.innerHTML = output;
