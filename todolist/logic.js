@@ -12,7 +12,8 @@ let tipTxt = document.querySelector('.tip'),
 //Создаем двумерный массив для целей и задач в виде объекта из двух массивов которые будут содрежать объекты
 let data = {
     'tip': [],
-    'task': []
+    'task': [],
+    tipActivIndex: -1
 };
 //проверяем есть ли что то в БД и если есть то заполниема массив data и выводим на экран
 if(localStorage.getItem('data')){
@@ -37,7 +38,7 @@ tipBut.addEventListener('click', function(){
 // тоже самое для задач
 taskBut.addEventListener('click', function(){
     let newTask = {
-        tip: tipActivIndex.value,
+        tip: data.tipActivIndex.value,
         text: taskTxt.value,
         chek: false
     };
@@ -72,11 +73,12 @@ tip.addEventListener('click', function(event){
         //Удаляем элемент из массива
         data.tip.splice(tipLi, 1);
     };
-    console.log(tipLi);
+    //console.log(tipLi);
     // Вывадим на экра, Ура!!! заработало!!!
     output()
     //сохраняем данные в локал сторедж
     localStorage.setItem('data', JSON.stringify(data));
+    console.log(JSON.stringify(data));
 });
 
 
@@ -96,6 +98,10 @@ function output(){
         </li>
         `;
         tip.innerHTML = output;
+        if (item.select === true){
+            data.tipActivIndex = i
+            console.log(data.tipActivIndex)
+        };
         //console.log(i)
     });
 };
