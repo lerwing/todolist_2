@@ -97,6 +97,11 @@ ul li:hover{
     color: rgb(252, 197, 44);
 }
 ul li.chek{
-    color: rgb(5, 206, 65);
-    font-size: inherit;
+    color: rgb(44, 143, 74);
+    font-weight: 500;
+    text-decoration: line-through;
+}
+ul.taskLi{
+    color: rgb(201, 31, 31);
+    font-weight: 600;
 }
