@@ -7,6 +7,7 @@ let tipTxt = document.querySelector('.tip'),
     taskBut = document.querySelector('.taskAdd'),
     task = document.querySelector('.taskLi')
 ;
+
 //let tipTemp = [];
 //let taskTemp = [];
 //Создаем двумерный массив для целей и задач в виде объекта из двух массивов которые будут содрежать объекты
@@ -20,7 +21,10 @@ if(localStorage.getItem('data')){
     data = JSON.parse(localStorage.getItem('data'));
     output();
 }
-const selectCategory = () => {
+
+
+//метод обработки нажатия кнопки получаем введенное название цели и делаем её активной
+const addCel = () => {
     let newTip = {
         text: tipTxt.value,
         select: false
@@ -32,12 +36,9 @@ const selectCategory = () => {
     localStorage.setItem('data', JSON.stringify(data));
     //очищаем поле воода
     tipTxt.value = '';
-}
-
-//метод обработки нажатия кнопки получаем введенное название цели и делаем её активной
-tipBut.addEventListener('click', selectCategory);
+};
 // тоже самое для задач
-taskBut.addEventListener('click', function(){
+const addTask = () => {
     if (data.tipActivIndex === -1){
         alert("Для ввода задчи выберите цель")
     } else {
@@ -54,9 +55,9 @@ taskBut.addEventListener('click', function(){
         //очищаем поле воода
         taskTxt.value = '';
     };
-});
+};
 //Выбор или удаление активной цели
-tip.addEventListener('click', function(event){
+const selectCel = (event) => {
     //получаем ID элемента LI
     let tipLi=event.target.getAttribute('id');
     //Проверка на что нажали удалить или выделить
@@ -93,9 +94,9 @@ tip.addEventListener('click', function(event){
     //сохраняем данные в локал сторедж
     localStorage.setItem('data', JSON.stringify(data));
     console.log(JSON.stringify(data));
-});
+};
 //помечаем или удаляем задачи
-task.addEventListener('click', function(event){
+const selectTask = (event) => {
     //получаем ID элемента LI
     let taskLi = event.target.getAttribute('id');
     //Проверка на что нажали удалить или пометить
@@ -119,11 +120,17 @@ task.addEventListener('click', function(event){
     //сохраняем данные в локал сторедж
     localStorage.setItem('data', JSON.stringify(data));
     console.log(JSON.stringify(data));
-});
+};
+// Обработчики событий
+tipBut.addEventListener('click', addCel);
+taskBut.addEventListener('click', addTask);
+tip.addEventListener('click', selectCel);
+task.addEventListener('click', selectTask);
+
 //Вывод данных
 function output(){
     //вывод задач
-    let output = '';
+    let outputHtml = '';
     //если массив целей пуст выводи пустоту
     if (data.tip.length === 0){
         tip.innerHTML = '';
@@ -133,12 +140,12 @@ function output(){
     };
     //сканируем массив целей и выводим строку li для каждого элемента массива
     data.tip.forEach(function(item, i){
-        output += `
+        outputHtml += `
         <li id="tip_${i}" ${item.select ? 'class="select"' : ''}>
         <span class="dell" id="tipD_${i}">X</span>${item.text}
         </li>
         `;
-        tip.innerHTML = output;
+        tip.innerHTML = outputHtml;
         if (item.select === true){
             data.tipActivIndex = i
             //console.log(data.tipActivIndex)
@@ -148,19 +155,19 @@ function output(){
         //console.log(i)
     });
     //То же самое для задач, задачи привязаны к целям
-    output = '';
+    outputHtml = '';
     // Проверяем есть ли задачи для выбранной цели. Для этого преобразуем набор элементов tip в простой массив и проверяем
     if (data.task.map(el => el.tip).includes(data.tipActivIndex) === false){
         task.innerHTML = '';
     } else{
         data.task.forEach(function(item, i){
             if (data.tipActivIndex == item.tip){
-            output +=`
+            outputHtml +=`
             <li id="tas_${i}" ${item.chek ? 'class="chek"' : ''}>
             <span class="dell" id="tasD_${i}">X</span>${item.text}
             </li>
             `;
-            task.innerHTML = output;
+            task.innerHTML = outputHtml;
             //console.log(data.tipActivIndex);
             //console.log(item.tip);
             };
