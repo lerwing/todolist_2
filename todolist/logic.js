@@ -20,9 +20,7 @@ if(localStorage.getItem('data')){
     data = JSON.parse(localStorage.getItem('data'));
     output();
 }
-
-//метод обработки нажатия кнопки получаем введенное название цели и делаем её активной
-tipBut.addEventListener('click', function(){
+const selectCategory = () => {
     let newTip = {
         text: tipTxt.value,
         select: false
@@ -34,7 +32,10 @@ tipBut.addEventListener('click', function(){
     localStorage.setItem('data', JSON.stringify(data));
     //очищаем поле воода
     tipTxt.value = '';
-});
+}
+
+//метод обработки нажатия кнопки получаем введенное название цели и делаем её активной
+tipBut.addEventListener('click', selectCategory);
 // тоже самое для задач
 taskBut.addEventListener('click', function(){
     if (data.tipActivIndex === -1){
