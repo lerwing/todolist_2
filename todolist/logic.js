@@ -7,7 +7,6 @@ let tipTxt = document.querySelector('.tip'),
     taskBut = document.querySelector('.taskAdd'),
     task = document.querySelector('.taskLi')
 ;
-
 //let tipTemp = [];
 //let taskTemp = [];
 //Создаем двумерный массив для целей и задач в виде объекта из двух массивов которые будут содрежать объекты
@@ -22,9 +21,8 @@ if(localStorage.getItem('data')){
     output();
 }
 
-
 //метод обработки нажатия кнопки получаем введенное название цели и делаем её активной
-const addCel = () => {
+tipBut.addEventListener('click', function(){
     let newTip = {
         text: tipTxt.value,
         select: false
@@ -36,9 +34,9 @@ const addCel = () => {
     localStorage.setItem('data', JSON.stringify(data));
     //очищаем поле воода
     tipTxt.value = '';
-};
+});
 // тоже самое для задач
-const addTask = () => {
+taskBut.addEventListener('click', function(){
     if (data.tipActivIndex === -1){
         alert("Для ввода задчи выберите цель")
     } else {
@@ -55,11 +53,12 @@ const addTask = () => {
         //очищаем поле воода
         taskTxt.value = '';
     };
-};
+});
 //Выбор или удаление активной цели
-const selectCel = (event) => {
+tip.addEventListener('click', function(event){
     //получаем ID элемента LI
     let tipLi=event.target.getAttribute('id');
+    console.log(tipLi);
     //Проверка на что нажали удалить или выделить
     if (tipLi.search("tip_") !== -1){
         //отбрасываем текстовую часть tip_
@@ -94,11 +93,12 @@ const selectCel = (event) => {
     //сохраняем данные в локал сторедж
     localStorage.setItem('data', JSON.stringify(data));
     console.log(JSON.stringify(data));
-};
+});
 //помечаем или удаляем задачи
-const selectTask = (event) => {
+task.addEventListener('click', function(event){
     //получаем ID элемента LI
     let taskLi = event.target.getAttribute('id');
+    console.log(taskLi);
     //Проверка на что нажали удалить или пометить
     if (taskLi.search("tas_") !== -1){
         //отбрасываем текстовую часть tas_
@@ -109,28 +109,23 @@ const selectTask = (event) => {
         data.task[taskLi].chek = !data.task[taskLi].chek;
     } else {
         //отбрасываем текстовую часть tasD_
-        taskLi = taskLi.slice(4);
+        taskLi = taskLi.slice(5);
         //преобразуем в число
         taskLi = Number.parseInt(taskLi);
         //Удаляем элемент из массива
         data.task.splice(taskLi, 1);
+        
     };
     // Выводим на экран
     output()
     //сохраняем данные в локал сторедж
     localStorage.setItem('data', JSON.stringify(data));
     console.log(JSON.stringify(data));
-};
-// Обработчики событий
-tipBut.addEventListener('click', addCel);
-taskBut.addEventListener('click', addTask);
-tip.addEventListener('click', selectCel);
-task.addEventListener('click', selectTask);
-
+});
 //Вывод данных
 function output(){
     //вывод задач
-    let outputHtml = '';
+    let output = '';
     //если массив целей пуст выводи пустоту
     if (data.tip.length === 0){
         tip.innerHTML = '';
@@ -140,12 +135,12 @@ function output(){
     };
     //сканируем массив целей и выводим строку li для каждого элемента массива
     data.tip.forEach(function(item, i){
-        outputHtml += `
+        output += `
         <li id="tip_${i}" ${item.select ? 'class="select"' : ''}>
         <span class="dell" id="tipD_${i}">X</span>${item.text}
         </li>
         `;
-        tip.innerHTML = outputHtml;
+        tip.innerHTML = output;
         if (item.select === true){
             data.tipActivIndex = i
             //console.log(data.tipActivIndex)
@@ -155,23 +150,22 @@ function output(){
         //console.log(i)
     });
     //То же самое для задач, задачи привязаны к целям
-    outputHtml = '';
+    output = '';
     // Проверяем есть ли задачи для выбранной цели. Для этого преобразуем набор элементов tip в простой массив и проверяем
     if (data.task.map(el => el.tip).includes(data.tipActivIndex) === false){
         task.innerHTML = '';
     } else{
         data.task.forEach(function(item, i){
             if (data.tipActivIndex == item.tip){
-            outputHtml +=`
+            output +=`
             <li id="tas_${i}" ${item.chek ? 'class="chek"' : ''}>
             <span class="dell" id="tasD_${i}">X</span>${item.text}
             </li>
             `;
-            task.innerHTML = outputHtml;
+            task.innerHTML = output;
             //console.log(data.tipActivIndex);
             //console.log(item.tip);
             };
         });
     };
 };
-
