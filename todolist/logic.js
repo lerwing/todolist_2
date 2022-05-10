@@ -1,3 +1,4 @@
+;(function todoList() {
 // метод получает значение из класса и записывает в переменную
 // tip = Цели(категории) task = Задачи (привязаны к целям)
 let tipTxt = document.querySelector('.tip'),
@@ -177,3 +178,4 @@ function output(){
         task.innerHTML = output;
     };
 };
+}());
