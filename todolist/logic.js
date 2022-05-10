@@ -1,5 +1,5 @@
 // метод получает значение из класса и записывает в переменную
-// 
+// tip = Цели(категории) task = Задачи (привязаны к целям)
 let tipTxt = document.querySelector('.tip'),
     tipBut = document.querySelector('.tipAdd'),
     tip = document.querySelector('.tipLi'),
@@ -20,9 +20,9 @@ if(localStorage.getItem('data')){
     data = JSON.parse(localStorage.getItem('data'));
     output();
 }
-
-//метод обработки нажатия кнопки получаем введенное название цели и делаем её активной
-tipBut.addEventListener('click', function(){
+// Стрелочные функци обработчиков событий нажатий
+//метод обработки нажатия кнопки получаем введенное название цели
+const addTip = () =>{
     let newTip = {
         text: tipTxt.value,
         select: false
@@ -34,9 +34,9 @@ tipBut.addEventListener('click', function(){
     localStorage.setItem('data', JSON.stringify(data));
     //очищаем поле воода
     tipTxt.value = '';
-});
-// тоже самое для задач
-taskBut.addEventListener('click', function(){
+};
+//метод обработки нажатия на кнопку добавить задачу
+const addTask = () =>{
     if (data.tipActivIndex === -1){
         alert("Для ввода задчи выберите цель")
     } else {
@@ -53,9 +53,9 @@ taskBut.addEventListener('click', function(){
         //очищаем поле воода
         taskTxt.value = '';
     };
-});
-//Выбор или удаление активной цели
-tip.addEventListener('click', function(event){
+};
+//Метод выбора и удаление целей
+const selectDellTip = (event) =>{
     //получаем ID элемента LI
     let tipLi=event.target.getAttribute('id');
     console.log(tipLi);
@@ -93,9 +93,9 @@ tip.addEventListener('click', function(event){
     //сохраняем данные в локал сторедж
     localStorage.setItem('data', JSON.stringify(data));
     console.log(JSON.stringify(data));
-});
-//помечаем или удаляем задачи
-task.addEventListener('click', function(event){
+};
+//Метод выбора и удаление целей
+const selectDellTask = (event) =>{
     //получаем ID элемента LI
     let taskLi = event.target.getAttribute('id');
     console.log(taskLi);
@@ -121,8 +121,18 @@ task.addEventListener('click', function(event){
     //сохраняем данные в локал сторедж
     localStorage.setItem('data', JSON.stringify(data));
     console.log(JSON.stringify(data));
-});
+};
+
+//кнопка добавить дель
+tipBut.addEventListener('click', addTip);
+//кнопка добавить задачу
+taskBut.addEventListener('click', addTask);
+//Выбор или удаление активной цели
+tip.addEventListener('click', selectDellTip);
+//помечаем или удаляем задачи
+task.addEventListener('click', selectDellTask);
 //Вывод данных
+
 function output(){
     //вывод задач
     let output = '';
