@@ -29,11 +29,11 @@ const addTip = () =>{
     };
     //Записываем новую цель в главный массив
     if (tipTxt.value !== '') data.tip.push(newTip);
-    output();
     //сохраняем данные в локал сторедж
     localStorage.setItem('data', JSON.stringify(data));
     //очищаем поле воода
     tipTxt.value = '';
+    output();
 };
 //метод обработки нажатия на кнопку добавить задачу
 const addTask = () =>{
@@ -47,11 +47,11 @@ const addTask = () =>{
         };
         //console.log(newTask);
         if (taskTxt.value !== '') data.task.push(newTask);
-        output();
         //сохраняем данные в локал сторедж
         localStorage.setItem('data', JSON.stringify(data));
         //очищаем поле воода
         taskTxt.value = '';
+        output();
     };
 };
 //Метод выбора и удаление целей
@@ -71,6 +71,7 @@ const selectDellTip = (event) =>{
         };
         //устанавливаем значение true выбранной цели
         data.tip[tipLi].select = true;
+        data.tipActivIndex = tipLi;
     } else{
         //отбрасываем текстовую часть tipD_
         tipLi = tipLi.slice(5);
@@ -88,13 +89,13 @@ const selectDellTip = (event) =>{
         };
     };
     //console.log(tipLi);
-    // Выводим на экран, Ура!!! заработало!!!
-    output()
     //сохраняем данные в локал сторедж
     localStorage.setItem('data', JSON.stringify(data));
     console.log(JSON.stringify(data));
+    // Выводим на экран, Ура!!! заработало!!!
+    output()
 };
-//Метод выбора и удаление целей
+//Метод выбора и удаление задач
 const selectDellTask = (event) =>{
     //получаем ID элемента LI
     let taskLi = event.target.getAttribute('id');
@@ -116,11 +117,12 @@ const selectDellTask = (event) =>{
         data.task.splice(taskLi, 1);
         
     };
-    // Выводим на экран
-    output()
     //сохраняем данные в локал сторедж
     localStorage.setItem('data', JSON.stringify(data));
     console.log(JSON.stringify(data));
+    // Выводим на экран
+    output()
+    
 };
 
 //кнопка добавить дель
@@ -150,15 +152,10 @@ function output(){
         <span class="dell" id="tipD_${i}">X</span>${item.text}
         </li>
         `;
-        tip.innerHTML = output;
-        if (item.select === true){
-            data.tipActivIndex = i
-            //console.log(data.tipActivIndex)
-            //сохраняем данные в локал сторедж
-            localStorage.setItem('data', JSON.stringify(data));
-        };
+        
         //console.log(i)
     });
+    tip.innerHTML = output;
     //То же самое для задач, задачи привязаны к целям
     output = '';
     // Проверяем есть ли задачи для выбранной цели. Для этого преобразуем набор элементов tip в простой массив и проверяем
@@ -172,10 +169,11 @@ function output(){
             <span class="dell" id="tasD_${i}">X</span>${item.text}
             </li>
             `;
-            task.innerHTML = output;
+            
             //console.log(data.tipActivIndex);
             //console.log(item.tip);
             };
         });
+        task.innerHTML = output;
     };
 };
