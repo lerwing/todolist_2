@@ -16,11 +16,51 @@ let data = {
     'task': [],
     tipActivIndex: -1
 };
-//проверяем есть ли что то в БД и если есть то заполниема массив data и выводим на экран
-if(localStorage.getItem('data')){
-    data = JSON.parse(localStorage.getItem('data'));
-    output();
-}
+
+const output =() =>{
+    //вывод задач
+    let outputTip = '';
+    //если массив целей пуст выводи пустоту
+    if (data.tip.length === 0){
+        tip.innerHTML = '';
+        data.tipActivIndex = -1;
+        //сохраняем данные в локал сторедж
+        localStorage.setItem('data', JSON.stringify(data));
+    };
+    //сканируем массив целей и выводим строку li для каждого элемента массива
+    data.tip.forEach(function(item, i){
+        outputTip += `
+        <li id="tip_${i}" ${item.select ? 'class="select"' : ''}>
+        <span class="dell" id="tipD_${i}">X</span>${item.text}
+        </li>
+        `;
+        
+        //console.log(i)
+    });
+    tip.innerHTML = outputTip;
+    //То же самое для задач, задачи привязаны к целям
+    let outputTask = '';
+    // Проверяем есть ли задачи для выбранной цели. Для этого преобразуем набор элементов tip в простой массив и проверяем
+    if (data.task.map(el => el.tip).includes(data.tipActivIndex) === false){
+        task.innerHTML = '';
+    } else{
+        data.task.forEach(function(item, i){
+            if (data.tipActivIndex == item.tip){
+                outputTask +=`
+            <li id="tas_${i}" ${item.chek ? 'class="chek"' : ''}>
+            <span class="dell" id="tasD_${i}">X</span>${item.text}
+            </li>
+            `;
+            
+            //console.log(data.tipActivIndex);
+            //console.log(item.tip);
+            };
+        });
+        task.innerHTML = outputTask;
+    };
+};
+
+
 // Стрелочные функци обработчиков событий нажатий
 //метод обработки нажатия кнопки получаем введенное название цели
 const addTip = () =>{
@@ -126,56 +166,20 @@ const selectDellTask = (event) =>{
     
 };
 
+//проверяем есть ли что то в БД и если есть то заполниема массив data и выводим на экран
+if(localStorage.getItem('data')){
+    data = JSON.parse(localStorage.getItem('data'));
+    output();
+}
 //кнопка добавить дель
 tipBut.addEventListener('click', addTip);
 //кнопка добавить задачу
 taskBut.addEventListener('click', addTask);
-//Выбор или удаление активной цели
+//Выбор или удаление цели
 tip.addEventListener('click', selectDellTip);
 //помечаем или удаляем задачи
 task.addEventListener('click', selectDellTask);
 //Вывод данных
 
-function output(){
-    //вывод задач
-    let output = '';
-    //если массив целей пуст выводи пустоту
-    if (data.tip.length === 0){
-        tip.innerHTML = '';
-        data.tipActivIndex = -1;
-        //сохраняем данные в локал сторедж
-        localStorage.setItem('data', JSON.stringify(data));
-    };
-    //сканируем массив целей и выводим строку li для каждого элемента массива
-    data.tip.forEach(function(item, i){
-        output += `
-        <li id="tip_${i}" ${item.select ? 'class="select"' : ''}>
-        <span class="dell" id="tipD_${i}">X</span>${item.text}
-        </li>
-        `;
-        
-        //console.log(i)
-    });
-    tip.innerHTML = output;
-    //То же самое для задач, задачи привязаны к целям
-    output = '';
-    // Проверяем есть ли задачи для выбранной цели. Для этого преобразуем набор элементов tip в простой массив и проверяем
-    if (data.task.map(el => el.tip).includes(data.tipActivIndex) === false){
-        task.innerHTML = '';
-    } else{
-        data.task.forEach(function(item, i){
-            if (data.tipActivIndex == item.tip){
-            output +=`
-            <li id="tas_${i}" ${item.chek ? 'class="chek"' : ''}>
-            <span class="dell" id="tasD_${i}">X</span>${item.text}
-            </li>
-            `;
-            
-            //console.log(data.tipActivIndex);
-            //console.log(item.tip);
-            };
-        });
-        task.innerHTML = output;
-    };
-};
+
 }());
