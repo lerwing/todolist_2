@@ -1,0 +1,8 @@
+:root {
+    --color-fon: beige;
+    --color-top: rgb(170, 170, 170);
+    --color-text-activ: rgb(16, 148, 16);
+    --color-hover: rgb(252, 197, 44);
+    --color-inactive: rgb(209, 29, 29);
+    --color-but-fon: azure;
+};

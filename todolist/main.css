@@ -1,22 +1,28 @@
+@import url(colors.css);
+
 html, body {
 	font-family:Georgia, 'Times New Roman', Times, serif;
-    background-color: beige;
-    margin: 0
+    background-color: var(--color-fon);
+    margin: 0;
 }
-.page{
+
+.page {
     position: relative;
     text-align: center;
 }
-.top{
+
+.top {
     height: 120px;
     width: 80%;
     max-width: 900px;
     min-width: 780px;
-    background-color: rgb(161, 161, 161);
+    background-color: var(--color-top);
     display: inline-block;
     margin: 0 auto;
+    padding-bottom: 1px;
 }
-.fon{
+
+.fon {
     width: 80%;
     min-height: 700px;
     max-width: 900px;
@@ -29,7 +35,8 @@ html, body {
     background-repeat: no-repeat;
     font-size: 14pt;
 }
-.txt_left{
+
+.txt_left {
     position: relative;
     text-align: left;
     min-width: 40%;
@@ -40,7 +47,8 @@ html, body {
     line-height: 1.45;
     float: left;
 }
-.txt_rigth{
+
+.txt_rigth {
     position: relative;
     text-align: left;
     float: left;
@@ -48,39 +56,45 @@ html, body {
     line-height: 1.44;
     margin-top: 1px;
 }
+
 input {
     float: left;
     margin-left: 10%;
     font-size: 14pt;
     max-width: 30%;
 }
+
 span {
     float: left;
     text-align: center;
     font-size: 10pt;
     margin-top: 1px;
     cursor: pointer;
-    background-color: azure;
+    background-color: var(--color-but-fon);
     padding: 5px;
     margin-left: 5px;
     transition: 0.1s;
 }
-span:hover{
-    background-color: rgb(34, 177, 58);
+
+span:hover {
+    background-color: var(--color-text-activ);
 }
-span.dell{
-    background-color: rgb(145, 145, 145);
+
+span.dell {
+    background-color: var(--color-top);
     margin-left: 0;
     margin-right: 10px;
     margin-top: 2px;
     padding: 1px;
-    color: brown;
+    color: var(--color-inactive);
     font-weight: 600;
 }
-span.dell:hover{
-    background-color: rgb(199, 15, 15);
-    color: rgb(255, 255, 255)
+
+span.dell:hover {
+    background-color: var(--color-inactive);
+    color: var(--color-but-fon);
 }
+
 ul {
     cursor: pointer;
     transition: 0.2s;
@@ -90,18 +104,22 @@ ul {
     padding: 0;
     float: left;
 }
+
 ul li.select {
-    color: rgb(18, 192, 12);
+    color: var(--color-text-activ);
 }
-ul li:hover{
-    color: rgb(252, 197, 44);
-}
-ul li.chek{
-    color: rgb(44, 143, 74);
+
+ul li.chek {
+    color: var(--color-text-activ);
     font-weight: 500;
     text-decoration: line-through;
 }
-ul.taskLi{
-    color: rgb(201, 31, 31);
+
+ul li:hover {
+    color: var(--color-hover);
+}
+
+ul.taskLi {
+    color: var(--color-inactive);
     font-weight: 600;
 }
