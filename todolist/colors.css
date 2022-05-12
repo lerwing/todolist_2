@@ -4,5 +4,11 @@
     --color-text-activ: rgb(16, 148, 16);
     --color-hover: rgb(252, 197, 44);
     --color-inactive: rgb(209, 29, 29);
-    --color-but-fon: azure;
+    --color-but-text: azure;
+    --color-but-grad: linear-gradient(#FB9575, #F45A38 48%, #a80f01 52%, #F02F17);
+    --color-but-grad-hover: linear-gradient(#56a812, #389925 48%, #077415 52%, #56a812);
+    --color-but-bord: #F45A38;
+    --color-but-bord-hover: #56a812;
+    --color-but-shadow: #a80f01;
+    --color-but-shadow-hover: #077415;
 };

@@ -17,9 +17,9 @@ html, body {
     max-width: 900px;
     min-width: 780px;
     background-color: var(--color-top);
-    display: inline-block;
     margin: 0 auto;
     padding-bottom: 1px;
+    
 }
 
 .fon {
@@ -57,42 +57,45 @@ html, body {
     margin-top: 1px;
 }
 
-input {
+.input {
     float: left;
-    margin-left: 10%;
+    margin-left: 5%;
     font-size: 14pt;
     max-width: 30%;
+    border: 1px solid;
+    border-radius: 5px;
 }
-
-span {
+.input--task {
+    margin-left: 15%;
+}
+.input_control {
     float: left;
     text-align: center;
     font-size: 10pt;
     margin-top: 1px;
     cursor: pointer;
-    background-color: var(--color-but-fon);
-    padding: 5px;
+    padding: 4px;
     margin-left: 5px;
     transition: 0.1s;
+    text-shadow: 0 -1px 1px var(--color-but-bord);
+    color: var(--color-but-text);
+    border: 1px solid var(--color-but-bord);
+    border-radius: 10px;
+    box-shadow: 0 0 0 0px black inset, .1em .1em .2em var(--color-but-shadow);
+    background: var(--color-but-grad);
 }
 
-span:hover {
-    background-color: var(--color-text-activ);
+.input_control:hover {
+    background: var(--color-but-grad-hover);
+    border: 1px solid var(--color-but-bord-hover);
+    text-shadow: 0 -1px 1px var(--color-but-bord-hover);
+    box-shadow: 0 0 0 0px black inset, .1em .1em .2em var(--color-but-shadow-hover);
 }
 
-span.dell {
-    background-color: var(--color-top);
-    margin-left: 0;
-    margin-right: 10px;
-    margin-top: 2px;
-    padding: 1px;
-    color: var(--color-inactive);
-    font-weight: 600;
-}
-
-span.dell:hover {
-    background-color: var(--color-inactive);
-    color: var(--color-but-fon);
+.input_control:active {
+    left: .1em;
+    top: .1em;
+    box-shadow: 0 0 0 0px rgba(0,0,0,.05) inset;
 }
 
 ul {
@@ -123,3 +126,23 @@ ul.taskLi {
     color: var(--color-inactive);
     font-weight: 600;
 }
+
+.dell {
+    margin-left: 0;
+    margin-right: 10px;
+    margin-top: 2px;
+    height: 20px;
+    width: 20px;
+    float: left;
+    background-image: url(img/del.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    filter: grayscale(0.7);
+}
+
+.dell:hover {
+    filter: grayscale(0);
+    filter: contrast(150%);
+    background-size: 95%;
+}
+
