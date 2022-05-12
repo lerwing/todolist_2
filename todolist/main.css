@@ -39,8 +39,8 @@ html, body {
 .txt_left {
     position: relative;
     text-align: left;
-    min-width: 40%;
-    max-width: 40%;
+    min-width: 43%;
+    max-width: 43%;
     margin-left: 2%;
     margin-top: 1px;
     font-weight: 600;
@@ -52,9 +52,11 @@ html, body {
     position: relative;
     text-align: left;
     float: left;
-    margin-left: 13%;
+    margin-left: 10%;
     line-height: 1.44;
     margin-top: 1px;
+    max-width: 45%;
+    min-width: 45%;
 }
 
 .input {
