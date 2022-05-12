@@ -9,9 +9,22 @@
         <div class="page">
             <div class="top">
                 <h1>Цели и задачи</h1>
-                <input type="text" placeholder="Введите цель..." id="tip" class="input">
+                <input 
+                title="Введите минимум одно слово из трех букв" 
+                type="text" placeholder="Введите цель..." 
+                id="tip" 
+                class="input" 
+                pattern="^.*[A-Za-zА-Яа-яёЁ]{3,}.*$"
+                >
                 <span id="tipAdd" class="input_control">Добавить</span>
-                <input type="text" placeholder="Введите задачу..." id="task" class="input input--task">
+                <input 
+                title="Введите минимум одно слово из трех букв" 
+                type="text" 
+                placeholder="Введите задачу..." 
+                id="task" 
+                class="input input--task" 
+                pattern="^.*[A-Za-zА-Яа-яёЁ]{3,}.*$"
+                >
                 <span id="taskAdd" class="input_control">Добавить</span>
             </div>
             <div class="fon">

@@ -70,33 +70,37 @@
     // Стрелочные функци обработчиков событий нажатий
     // метод обработки нажатия кнопки получаем введенное название цели
     const addTip = () => {
-        let newTip = {
-            text: tipTxt.value,
-            select: false
-        };
-        //Записываем новую цель в главный массив
-        if (tipTxt.value) {
+        if (/^.*[A-Za-zА-Яа-яёЁ]{3,}.*$/.test(tipTxt.value)) {
+            tipTxt.value = tipTxt.value.replace(/\s{2,}/g, ' ');
+            tipTxt.value = tipTxt.value.replace(/^\s{1,}/, '');
+            let newTip = {
+                text: tipTxt.value,
+                select: false
+            };
+            //Записываем новую цель в главный массив
             data.tip.push(newTip);
+            //сохраняем данные в локал сторедж
+            localStorage.setItem('data', JSON.stringify(data));
+            //очищаем поле воода
+            tipTxt.value = '';
+            output();
         };
-        //сохраняем данные в локал сторедж
-        localStorage.setItem('data', JSON.stringify(data));
-        //очищаем поле воода
-        tipTxt.value = '';
-        output();
     };
 
     // метод обработки нажатия на кнопку добавить задачу
     const addTask = () => {
         if (data.tipActivIndex === INACTIVE_INDEX) {
             alert("Для ввода задачи выберите цель")
-        } else {
+        } else if (/^.*[A-Za-zА-Яа-яёЁ]{3,}.*$/.test(taskTxt.value)) {
+            taskTxt.value = taskTxt.value.replace(/\s{2,}/g, ' ');
+            taskTxt.value = taskTxt.value.replace(/^\s{1,}/, '');
             let newTask = {
                 tip: data.tipActivIndex,
                 text: taskTxt.value,
                 chek: false
             };
             //console.log(newTask);
-            if (taskTxt.value) data.task.push(newTask);
+            data.task.push(newTask);
             //сохраняем данные в локал сторедж
             localStorage.setItem('data', JSON.stringify(data));
             //очищаем поле воода

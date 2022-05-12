@@ -73,7 +73,11 @@ html, body {
     border: 1px solid var(--color-but-bord-hover);
     box-shadow: .1em .1em .1em var(--color-but-shadow-hover);
 }
-
+.input:invalid {
+    outline:0px;
+    border: 1px solid var(--color-but-bord);
+    box-shadow: .1em .1em .1em var(--color-but-shadow);
+}
 .input--task {
     margin-left: 15%;
 }
