@@ -7,7 +7,7 @@
     </head>
     <body>
         <div class="page">
-            <div class="header">
+            <header class="header-todo">
                 <h1 class="title">Цели и задачи</h1>
                 <input
                     class="input"
@@ -27,11 +27,11 @@
                     pattern="^.*[A-Za-zА-Яа-яёЁ]{3,}.*$"
                 >
                 <button id="taskAdd" class="input__control">Добавить</button>
-            </div>
-            <div class="content">
+            </header>
+            <main class="content">
                 <ul class="list" id="tipLi"></ul>
                 <ul class="list list_task" id="taskLi"></ul>
-            </div>
+            </main>
         </div>
     </body>
     <script src="logic.js"></script>

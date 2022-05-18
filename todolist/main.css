@@ -15,7 +15,7 @@ html, body {
 }
 
 /*глобальный блок шапки*/
-.header {
+.header-todo {
     margin: 0 auto;
 
     height: 120px;
