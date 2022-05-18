@@ -21,19 +21,19 @@
 
     //Элементы верстки
     //Цели
-    const getHtmlTip = (item, i) => {
+    const getHtmlTip = (tip, i) => {
         return `
-        <li id="tip_${i}" class="${item.select ? 'list__text list__text_select' : 'list__text'}">
-        <button class="btn-dell" id="tipD_${i}"></button>${item.text}
+        <li id="tip_${i}" class="${tip.select ? 'list__text list__text_select' : 'list__text'}">
+        <button class="btn-dell" id="tipD_${i}"></button>${tip.text}
         </li>
         `
     };
 
     //Задачи
-    const getHtmlTask = (item, i) => {
+    const getHtmlTask = (task, i) => {
         return `
-        <li id="tas_${i}" class="${item.complete ? 'list__text list__text_compleat' : 'list__text'}">
-        <button class="btn-dell" id="tasD_${i}"></button>${item.text}
+        <li id="tas_${i}" class="${task.complete ? 'list__text list__text_compleat' : 'list__text'}">
+        <button class="btn-dell" id="tasD_${i}"></button>${task.text}
         </li>
         `
     };
