@@ -7,37 +7,30 @@
     </head>
     <body>
         <div class="page">
-            <div class="top">
-                <h1>Цели и задачи</h1>
-                <input 
-                title="Введите минимум одно слово из трех букв" 
-                type="text" placeholder="Введите цель..." 
-                id="tip" 
-                class="input" 
-                pattern="^.*[A-Za-zА-Яа-яёЁ]{3,}.*$"
+            <div class="header">
+                <h1 class="title">Цели и задачи</h1>
+                <input
+                    class="input"
+                    id="input_tip" 
+                    title="Введите минимум одно слово из трех букв" 
+                    type="text" 
+                    placeholder="Введите цель..." 
+                    pattern="^.*[A-Za-zА-Яа-яёЁ]{3,}.*$"
                 >
-                <span id="tipAdd" class="input_control">Добавить</span>
+                <button id="tipAdd" class="input__control">Добавить</button>
                 <input 
-                title="Введите минимум одно слово из трех букв" 
-                type="text" 
-                placeholder="Введите задачу..." 
-                id="task" 
-                class="input input--task" 
-                pattern="^.*[A-Za-zА-Яа-яёЁ]{3,}.*$"
+                    class="input input_task" 
+                    id="input_task" 
+                    title="Введите минимум одно слово из трех букв" 
+                    type="text" 
+                    placeholder="Введите задачу..." 
+                    pattern="^.*[A-Za-zА-Яа-яёЁ]{3,}.*$"
                 >
-                <span id="taskAdd" class="input_control">Добавить</span>
+                <button id="taskAdd" class="input__control">Добавить</button>
             </div>
-            <div class="fon">
-                <div class="txt_left">
-                    <ul id="tipLi">
-                        
-                    </ul>
-                </div>
-                <div class="txt_rigth">
-                    <ul id="taskLi">
-                        
-                    </ul>
-                </div>
+            <div class="content">
+                <ul class="list" id="tipLi"></ul>
+                <ul class="list list_task" id="taskLi"></ul>
             </div>
         </div>
     </body>

@@ -1,9 +1,12 @@
 @import url(colors.css);
 
 html, body {
+    margin: 0;
+
+    font-size: 12pt;
+
 	font-family:Georgia, 'Times New Roman', Times, serif;
     background-color: var(--color-fon);
-    margin: 0;
 }
 
 .page {
@@ -11,85 +14,66 @@ html, body {
     text-align: center;
 }
 
-.top {
+/*глобальный блок шапки*/
+.header {
+    margin: 0 auto;
+
     height: 120px;
     width: 80%;
     max-width: 900px;
     min-width: 780px;
+
     background-color: var(--color-top);
-    margin: 0 auto;
-    padding-bottom: 1px;
-    
 }
 
-.fon {
-    width: 80%;
-    min-height: 700px;
-    max-width: 900px;
-    min-width: 780px;
-    display: inline-block;
-    margin: 0 auto;
-    background-position: center;
-    background-image: url(img/txt_fon.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    font-size: 14pt;
-}
+.title {
+    display: block;
+    margin: 0;
+    margin-top: 0.5em;
+    margin-bottom: 0.67em;
 
-.txt_left {
-    position: relative;
-    text-align: left;
-    min-width: 43%;
-    max-width: 43%;
-    margin-left: 2%;
-    margin-top: 1px;
-    font-weight: 600;
-    line-height: 1.45;
-    float: left;
-}
-
-.txt_rigth {
-    position: relative;
-    text-align: left;
-    float: left;
-    margin-left: 10%;
-    line-height: 1.44;
-    margin-top: 1px;
-    max-width: 45%;
-    min-width: 45%;
+    font-size: 2em;
+    font-weight: bold;
 }
 
 .input {
-    float: left;
     margin-left: 5%;
-    font-size: 14pt;
+    float: left;
+
     max-width: 30%;
+
+    font-size: 1.16em;
+    
     border: 1px solid;
     border-radius: 5px;
+    outline:0px;
 }
 
 .input:focus {
-    outline:0px;
     border: 1px solid var(--color-but-bord-hover);
     box-shadow: .1em .1em .1em var(--color-but-shadow-hover);
 }
+
 .input:invalid {
-    outline:0px;
     border: 1px solid var(--color-but-bord);
     box-shadow: .1em .1em .1em var(--color-but-shadow);
 }
-.input--task {
+
+.input_task {
     margin-left: 15%;
 }
-.input_control {
-    user-select: none;
-    float: left;
-    text-align: center;
-    font-size: 10pt;
-    margin-top: 1px;
-    cursor: pointer;
-    padding: 4px;
+
+.input__control {
     margin-left: 5px;
+    margin-top: 1px;
+    padding: 4px;
+    float: left;
+
+    user-select: none;
+    cursor: pointer;
+    text-align: center;
+    font-size: 0.83em;
+
     transition: 0.1s;
     text-shadow: 0 -1px 1px var(--color-but-bord);
     color: var(--color-but-text);
@@ -99,62 +83,99 @@ html, body {
     background: var(--color-but-grad);
 }
 
-.input_control:hover {
+.input__control:hover {
     background: var(--color-but-grad-hover);
     border: 1px solid var(--color-but-bord-hover);
     text-shadow: 0 -1px 1px var(--color-but-bord-hover);
     box-shadow: .1em .1em .2em var(--color-but-shadow-hover);
 }
 
-.input_control:active {
-    left: .1em;
-    top: .1em;
+.input__control:active {
     box-shadow: none;
 }
 
-ul {
-    cursor: pointer;
-    transition: 0.2s;
-    user-select: none;
-    list-style-type: none;
+/*глобальный блок вывода контента*/
+.content {
+    display: inline-block;
+    margin: 0 auto;
+    padding-top: 1px;
+
+    width: 80%;
+    min-height: 700px;
+    max-width: 900px;
+    min-width: 780px;
+
+    font-size: 1.16em;
+
+    background-position: center;
+    background-image: url(img/txt_fon.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.list {
+    position: relative;
     margin: 0;
+    margin-left: 2%;
     padding: 0;
     float: left;
+    
+    min-width: 43%;
+    max-width: 43%;
+
+    text-align: left;
+    font-weight: 600;
+    line-height: 1.45;
+    transition: 0.2s;
+    list-style-type: none;
 }
 
-ul li.select {
-    color: var(--color-text-activ);
-}
+.list_task {
+    margin-left: 10%;
 
-ul li.chek {
-    color: var(--color-text-activ);
+    max-width: 45%;
+    min-width: 45%;
+
+    line-height: 1.44;
     font-weight: 500;
-    text-decoration: line-through;
 }
 
-ul li:hover {
+.list :hover {
     color: var(--color-hover);
 }
 
-ul.taskLi {
-    color: var(--color-inactive);
-    font-weight: 600;
+.list__text {
+    user-select: none;
+    cursor: pointer;
 }
 
-.dell {
+.list__text_select {
+    color: var(--color-text-activ);
+}
+
+.list__text_compleat {
+    color: var(--color-text-activ);
+    text-decoration: line-through;
+}
+
+.btn-dell {
     margin-left: 0;
     margin-right: 10px;
     margin-top: 2px;
+    float: left;
+
     height: 20px;
     width: 20px;
-    float: left;
+
+    cursor: pointer;
+    border: 0;
     background-image: url(img/del.png);
     background-size: contain;
     background-repeat: no-repeat;
     filter: grayscale(0.7);
 }
 
-.dell:hover {
+.btn-dell:hover {
     filter: grayscale(0);
     filter: contrast(150%);
     background-size: 95%;

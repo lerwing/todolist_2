@@ -3,17 +3,17 @@
 (function todoList() {
     const INACTIVE_INDEX = -1;
     // метод получает значение из класса и записывает в переменную
-    // tip = Цели(категории) task = Задачи (привязаны к целям)
-    let tipTxt = document.querySelector('#tip'),
-        tipBut = document.querySelector('#tipAdd'),
+    // tip = Цели(категории, тип задач) task = Задачи (привязаны к целям)
+    let inputTipText = document.querySelector('#input_tip'),
+        tipBtn = document.querySelector('#tipAdd'),
         tip = document.querySelector('#tipLi'),
-        taskTxt = document.querySelector('#task'),
-        taskBut = document.querySelector('#taskAdd'),
+        inputTaskText = document.querySelector('#input_task'),
+        taskBtn = document.querySelector('#taskAdd'),
         task = document.querySelector('#taskLi')
     ;
 
     //Создаем двумерный массив для целей и задач в виде объекта из двух массивов которые будут содрежать объекты
-    let data = {
+    let dataTodo = {
         'tip': [],
         'task': [],
         tipActivIndex: INACTIVE_INDEX
@@ -23,8 +23,8 @@
     //Цели
     const getHtmlTip = (item, i) => {
         return `
-        <li id="tip_${i}" ${item.select ? 'class="select"' : ''}>
-        <div class="dell" id="tipD_${i}"></div>${item.text}
+        <li id="tip_${i}" class="${item.select ? 'list__text list__text_select' : 'list__text'}">
+        <button class="btn-dell" id="tipD_${i}"></button>${item.text}
         </li>
         `
     };
@@ -32,8 +32,8 @@
     //Задачи
     const getHtmlTask = (item, i) => {
         return `
-        <li id="tas_${i}" ${item.chek ? 'class="chek"' : ''}>
-        <div class="dell" id="tasD_${i}"></div>${item.text}
+        <li id="tas_${i}" class="${item.complete ? 'list__text list__text_compleat' : 'list__text'}">
+        <button class="btn-dell" id="tasD_${i}"></button>${item.text}
         </li>
         `
     };
@@ -42,25 +42,25 @@
     const output = () => {
         let outputTip = '';
         //если массив целей пуст выводи пустоту
-        if (!data.tip.length) {
+        if (!dataTodo.tip.length) {
             tip.innerHTML = '';
-            data.tipActivIndex = INACTIVE_INDEX;
+            dataTodo.tipActivIndex = INACTIVE_INDEX;
             //сохраняем данные в локал сторедж
-            localStorage.setItem('data', JSON.stringify(data));
+            localStorage.setItem('dataTodo', JSON.stringify(dataTodo));
         };
         //сканируем массив целей и выводим строку li для каждого элемента массива
-        data.tip.forEach((item, i) => {
+        dataTodo.tip.forEach((item, i) => {
             outputTip += getHtmlTip(item, i);
             //console.log(i)
         });
         tip.innerHTML = outputTip;
         //То же самое для задач, задачи привязаны к целям
         // Проверяем есть ли задачи для выбранной цели. Фильтруем массив задач по активному индексу и проверяем его длинну
-        if (!data.task.filter(el => el.tip === data.tipActivIndex).length) {
+        if (!dataTodo.task.filter(el => el.tip === dataTodo.tipActivIndex).length) {
             task.innerHTML = '';
         } else {
-            const outputTask = data.task.reduce((acc, item, i) => {
-                const temp = data.tipActivIndex === item.tip ? getHtmlTask(item, i) : '';
+            const outputTask = dataTodo.task.reduce((acc, item, i) => {
+                const temp = dataTodo.tipActivIndex === item.tip ? getHtmlTask(item, i) : '';
                 return  `${acc}${temp}`;
             }, '' );
             task.innerHTML = outputTask;
@@ -70,133 +70,144 @@
     // Стрелочные функци обработчиков событий нажатий
     // метод обработки нажатия кнопки получаем введенное название цели
     const addTip = () => {
-        if (/^.*[A-Za-zА-Яа-яёЁ]{3,}.*$/.test(tipTxt.value)) {
-            tipTxt.value = tipTxt.value.replace(/\s{2,}/g, ' ');
-            tipTxt.value = tipTxt.value.replace(/^\s{1,}/, '');
+        if (/^.*[A-Za-zА-Яа-яёЁ]{3,}.*$/.test(inputTipText.value)) {
+            inputTipText.value = inputTipText.value.replace(/\s{2,}/g, ' ');
+            inputTipText.value = inputTipText.value.replace(/^\s{1,}/, '');
             let newTip = {
-                text: tipTxt.value,
+                text: inputTipText.value,
                 select: false
             };
             //Записываем новую цель в главный массив
-            data.tip.push(newTip);
+            dataTodo.tip.push(newTip);
             //сохраняем данные в локал сторедж
-            localStorage.setItem('data', JSON.stringify(data));
+            localStorage.setItem('dataTodo', JSON.stringify(dataTodo));
             //очищаем поле воода
-            tipTxt.value = '';
+            inputTipText.value = '';
             output();
         };
     };
 
     // метод обработки нажатия на кнопку добавить задачу
     const addTask = () => {
-        if (data.tipActivIndex === INACTIVE_INDEX) {
+        if (dataTodo.tipActivIndex === INACTIVE_INDEX) {
             alert("Для ввода задачи выберите цель")
-        } else if (/^.*[A-Za-zА-Яа-яёЁ]{3,}.*$/.test(taskTxt.value)) {
-            taskTxt.value = taskTxt.value.replace(/\s{2,}/g, ' ');
-            taskTxt.value = taskTxt.value.replace(/^\s{1,}/, '');
+        } else if (/^.*[A-Za-zА-Яа-яёЁ]{3,}.*$/.test(inputTaskText.value)) {
+            inputTaskText.value = inputTaskText.value.replace(/\s{2,}/g, ' ');
+            inputTaskText.value = inputTaskText.value.replace(/^\s{1,}/, '');
             let newTask = {
-                tip: data.tipActivIndex,
-                text: taskTxt.value,
-                chek: false
+                tip: dataTodo.tipActivIndex,
+                text: inputTaskText.value,
+                complete: false
             };
             //console.log(newTask);
-            data.task.push(newTask);
+            dataTodo.task.push(newTask);
             //сохраняем данные в локал сторедж
-            localStorage.setItem('data', JSON.stringify(data));
+            localStorage.setItem('dataTodo', JSON.stringify(dataTodo));
             //очищаем поле воода
-            taskTxt.value = '';
+            inputTaskText.value = '';
             output();
         };
     };
 
-    // Метод выбора и удаление целей
-    const selectDellTip = (event) => {
+    // Метод выбора целей
+    const selectTip = (event) => {
         //получаем ID элемента LI
-        let tipLi=event.target.getAttribute('id');
-        console.log(tipLi);
-        //Проверка на что нажали удалить или выделить
-        if (tipLi.search("tip_") !== INACTIVE_INDEX) {
+        let tipId=event.target.getAttribute('id');
+        console.log(tipId);
+        if (tipId.search("tip_") !== INACTIVE_INDEX) {
             //отбрасываем текстовую часть tip_
-            tipLi = tipLi.slice(4);
+            tipId = tipId.slice(4);
             //преобразуем в число
-            tipLi = Number.parseInt(tipLi);
+            tipId = Number.parseInt(tipId);
             //устанавливаем значение false всем целям
-            data.tip.forEach((item) => {
+            dataTodo.tip.forEach((item) => {
                 item.select = false;
             });
             //устанавливаем значение true выбранной цели
-            data.tip[tipLi].select = true;
-            data.tipActivIndex = tipLi;
-        } else {
-            // отбрасываем текстовую часть tipD_
-            tipLi = tipLi.slice(5);
-            // преобразуем в число
-            tipLi = Number.parseInt(tipLi);
-            // Удаляем элемент из массива
-            data.tip.splice(tipLi, 1);
-            // удаляем связанные задачи. С помощью фильтра оставляем элементы в которых ID не равен ID удаленной задачи
-            data.task = data.task.filter((item) => item.tip !== tipLi);
+            dataTodo.tip[tipId].select = true;
+            dataTodo.tipActivIndex = tipId;
+            // сохраняем данные в локал сторедж
+            localStorage.setItem('dataTodo', JSON.stringify(dataTodo));
+            console.log(JSON.stringify(dataTodo));
+            // Выводим на экран
+            output();
         };
-        // сохраняем данные в локал сторедж
-        localStorage.setItem('data', JSON.stringify(data));
-        console.log(JSON.stringify(data));
-        // Выводим на экран, Ура!!! заработало!!!
-        output()
     };
 
-    //Метод выбора и удаление задач
-    const selectDellTask = (event) => {
-        //получаем ID элемента LI
-        let taskLi = event.target.getAttribute('id');
-        console.log(taskLi);
-        //Проверка на что нажали удалить или пометить
-        if (taskLi.search("tas_") !== INACTIVE_INDEX) {
-            //отбрасываем текстовую часть tas_
-            taskLi = taskLi.slice(4);
-            //преобразуем в число
-            taskLi = Number.parseInt(taskLi);
-            //инвертируем статус задачи
-            data.task[taskLi].chek = !data.task[taskLi].chek;
-        } else {
-            //отбрасываем текстовую часть tasD_
-            taskLi = taskLi.slice(5);
-            //преобразуем в число
-            taskLi = Number.parseInt(taskLi);
-            //Удаляем элемент из массива
-            data.task.splice(taskLi, 1);
-            
+    // Метод удаление целей
+    const removeTip  = (event) => {
+        let tipId=event.target.getAttribute('id');
+        if (tipId.search("tipD_") !== INACTIVE_INDEX) {
+            // отбрасываем текстовую часть tipD_
+            tipId = tipId.slice(5);
+            // преобразуем в число
+            tipId = Number.parseInt(tipId);
+            // Удаляем элемент из массива
+            dataTodo.tip.splice(tipId, 1);
+            // удаляем связанные задачи. С помощью фильтра оставляем элементы в которых ID не равен ID удаленной задачи
+            dataTodo.task = dataTodo.task.filter((item) => item.tip !== tipId);
+            // сохраняем данные в локал сторедж
+            localStorage.setItem('dataTodo', JSON.stringify(dataTodo));
+            // Выводим на экран
+            output();
         };
-        //сохраняем данные в локал сторедж
-        localStorage.setItem('data', JSON.stringify(data));
-        console.log(JSON.stringify(data));
-        // Выводим на экран
-        output()
-        
+    };
+
+    //Метод помечает задачи как выполненные
+    const selectTask = (event) => {
+        //получаем ID элемента LI
+        let taskId = event.target.getAttribute('id');
+        console.log(taskId);
+        if (taskId.search("tas_") !== INACTIVE_INDEX) {
+            //отбрасываем текстовую часть tas_
+            taskId = taskId.slice(4);
+            //преобразуем в число
+            taskId = Number.parseInt(taskId);
+            //инвертируем статус задачи
+            dataTodo.task[taskId].complete = !dataTodo.task[taskId].complete;
+            //сохраняем данные в локал сторедж
+            localStorage.setItem('dataTodo', JSON.stringify(dataTodo));
+            // Выводим на экран
+            output();
+        };
+    };
+    //Метод удаление задач
+    const removeTask = (event) => {
+        let taskId = event.target.getAttribute('id');
+        if (taskId.search("tasD_") !== INACTIVE_INDEX) {
+            taskId = taskId.slice(5);
+            taskId = Number.parseInt(taskId);
+            dataTodo.task.splice(taskId, 1);
+            localStorage.setItem('dataTodo', JSON.stringify(dataTodo));
+            output();
+        };
     };
 
     //Ход программы
 
-    //проверяем есть ли что то в БД и если есть то заполниема массив data и выводим на экран
-    if(localStorage.getItem('data')){
-        data = JSON.parse(localStorage.getItem('data'));
+    //проверяем есть ли что то в БД и если есть то заполниема массив dataTodo и выводим на экран
+    if(localStorage.getItem('dataTodo')){
+        dataTodo = JSON.parse(localStorage.getItem('dataTodo'));
         output();
     };
     //кнопка добавить цель
-    tipBut.addEventListener('click', addTip);
-    tipTxt.addEventListener('keyup', event => {
+    tipBtn.addEventListener('click', addTip);
+    inputTipText.addEventListener('keyup', event => {
         if(event.code === 'Enter') {
             addTip();
         };
     });
     //кнопка добавить задачу
-    taskBut.addEventListener('click', addTask);
-    taskTxt.addEventListener('keyup', event => {
+    taskBtn.addEventListener('click', addTask);
+    inputTaskText.addEventListener('keyup', event => {
         if(event.code === 'Enter') {
             addTask();
         };
     });
     //Выбор или удаление цели
-    tip.addEventListener('click', selectDellTip);
+    tip.addEventListener('click', selectTip);
+    tip.addEventListener('click', removeTip);
     //помечаем или удаляем задачи
-    task.addEventListener('click', selectDellTask);
+    task.addEventListener('click', selectTask);
+    task.addEventListener('click', removeTask);
 }());
