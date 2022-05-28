@@ -60,8 +60,7 @@
             task.innerHTML = '';
         } else {
             const outputTask = dataTodo.task.reduce((acc, item, i) => {
-                const temp = dataTodo.tipActivIndex === item.tip ? getHtmlTask(item, i) : '';
-                return  `${acc}${temp}`;
+                return  `${acc}${dataTodo.tipActivIndex === item.tip ? getHtmlTask(item, i) : ''}`;
             }, '' );
             task.innerHTML = outputTask;
         };
